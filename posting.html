@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+	<meta charset="utf-8">
+	<title>FindItUVA: Sell an Item</title>
+</head>
+<body>
+     <div class="container">
+
+      <form class="form-signin" action = "landing.html" onsubmit = "(verifyFilled(this))">
+        <h2 class="form-signin-heading">Post an Item for Sale</h2>
+        <label for="itemName">Item Name</label>
+        <input id="itemName" placeholder="What do you want to sell?" required autofocus>
+        <br>
+        <label for="itemPrice">Item Price (USD)</label>
+        <input id="itemPrice"  placeholder="5.00" required>
+        <br>
+        <label for="itemCategory">Item Category</label>
+        <input id="itemCategory"  placeholder="(e.g. Book, Furniture, Other, etc.)" required>
+        <br>
+        <input type = "submit" value = "Post Item">
+      </form>
+
+     </div> <!-- /container -->
+
+   <script language="javascript">
+      /*checks whether data fields have been entered for posting */
+       function verifyFilled(form) {
+          if(document.getElementById("itemName").value === '' || document.getElementById("itemCategory").value === ''){
+              alert("Please enter data in all required fields.");
+              return false;
+          }
+          else {
+            return true;
+          }
+        }
+    </script>
+</body>
+</html>
