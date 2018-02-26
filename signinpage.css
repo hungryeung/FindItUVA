@@ -2,5 +2,11 @@ body {
 	background-color: lightblue;
 	font-style: normal;
 }
+div.container{
+	float:left;
+}
 
+h2.form-signin-heading{
+	color:RoyalBlue;
+}
 
