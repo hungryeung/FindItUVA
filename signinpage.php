@@ -7,6 +7,8 @@
 <!-- Latest compiled and minified JavaScript -->
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
 
+
+<!-- The main sign in page -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,6 +31,9 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
+
+  <!-- Form for login  -->
+
   <body>
      <div class="container">
       <form class="form-signin" onsubmit = "(verifyLogIn(this))" method = "post">
@@ -48,6 +53,7 @@
 
     </div> <!-- /container -->
 
+  <!-- Form for signup -->
     <div class = "container">
       <form class = "form-signin" onsubmit= "(verifySignUp(this))" method = "post">
         <h2 class = "form-signin-heading"> Don't Have an Account Yet?</h2>

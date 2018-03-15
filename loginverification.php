@@ -1,9 +1,12 @@
 <?php
 
-// form handler and form -- same file -- sometimes refer to as "sticky form" 
+//Used to verify that login inputs are correct and have been entered on the sign in screen.  This will be processed on the server side.
 
 $inputEmail = $inputPassword = $feedback = NULL;
 
+
+//checks if values are empty and also if email entered is a valid email address.  If not, display an error message onto the screen for the user.
+//the first line will check which submit button has been pressed so that we know which post requests to process.
 if (!empty($_POST['login-submit'])) {
    if ($_SERVER['REQUEST_METHOD'] == 'POST')
    {
@@ -20,6 +23,7 @@ if (!empty($_POST['login-submit'])) {
       }      
    }
 
+//if the feedback is not null, then we know that the inputs have been entered correctly.  Display the inputs to the user and then redirect the user to the main home page.
    if ($feedback != NULL){
          header('Refresh:5; url=landing.html');
    	   echo "<hr/>";

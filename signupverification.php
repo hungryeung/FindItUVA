@@ -1,7 +1,11 @@
 <?php
 
+//Used to verify that sign in form inputs are correct and have been entered on the sign in screen.  This will be processed on the server side.
+
 $inputEmailSignUp = $inputPasswordSignUp = $confirmPasswordSignUp = $phoneNumberSignUp = $feedbackSignUp = NULL;
 
+//If any of the inputs are empty, identify which ones are empty and display the correspodning error message for that error
+//the first line will check which submit button has been pressed so that we know which post requests to process.
 if (!empty($_POST['signup-submit'])) {
    if ($_SERVER['REQUEST_METHOD'] == 'POST'){
       if (empty($_POST['inputEmailSignUp']) || empty($_POST['inputPasswordSignUp']) || empty($_POST['confirmPasswordSignUp']) || empty($_POST['phoneNumberSignUp'])) {
@@ -25,6 +29,7 @@ if (!empty($_POST['signup-submit'])) {
       }      
    }
 
+//if the feedback is not null, then we know that the inputs have been entered correctly.  Display the inputs to the user and then redirect the user to the main home page.
    if ($feedback != NULL){
       header('Refresh:5; url=landing.html');
       echo "<hr/>";
