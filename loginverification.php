@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
    if (empty($_POST['inputEmail']))
       echo "<font color='red'><i>Email address is a required field. Please enter a valid virginia.edu email address to log in.</i></font> <br />";
-   if (empty($_POST['inputPassword']))
+   else if (empty($_POST['inputPassword']))
       echo "<font color='red'><i>Password is a required field. Please enter a password to log in.</i></font> <br />";
    else 
    {   	
