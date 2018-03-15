@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,36 +31,36 @@
   </head>
   <body>
      <div class="container">
-
-      <form class="form-signin" action = "landing.html" onsubmit = "(verifyLogIn(this))">
+      <form class="form-signin" onsubmit = "(verifyLogIn(this))" method = "post">
         <h2 class="form-signin-heading">Log In to FindItUVA</h2>
         <label for="inputEmail">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="UVA email address (computingID@virginia.edu)" pattern=".+@virginia.edu" required autofocus>
+        <input type="email" name = "inputEmail" id="inputEmail" class="form-control" placeholder="UVA email address (computingID@virginia.edu)" pattern=".+@virginia.edu" required autofocus>
         <label for="inputPassword">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="password" name = "inputPassword" id="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox">
           <label>
             <input type="checkbox" value="remember-me"> Remember me
           </label>
         </div>
-
-        <input type = "submit" value = "Log In" class="btn btn-lg btn-primary btn-block">
+        <input type = "submit" value = "Log In" class="btn btn-lg btn-primary btn-block" formnovalidate>
+        <?php require 'loginverification.php' ?>
       </form>
 
     </div> <!-- /container -->
 
     <div class = "container">
-      <form class = "form-signin" action = "landing.html" onsubmit= "(verifySignUp(this))">
+      <form class = "form-signin" onsubmit= "(verifySignUp(this))" method = "post">
         <h2 class = "form-signin-heading"> Don't Have an Account Yet?</h2>
           <label for="inputEmail">Email address</label>
-          <input type="email" id="inputEmailSignUp" class="form-control" placeholder="UVA email address (computingID@virginia.edu)" pattern=".+@virginia.edu" required autofocus>
+          <input type="email" name = "inputEmailSignUp" id="inputEmailSignUp" class="form-control" placeholder="UVA email address (computingID@virginia.edu)" pattern=".+@virginia.edu" required autofocus>
           <label for="inputPassword">Password</label>
-          <input type="password" id="inputPasswordSignUp" class="form-control" placeholder="Password" required>
+          <input type="password" name = "inputPasswordSignUp" id="inputPasswordSignUp" class="form-control" placeholder="Password" required>
           <label for="inputPassword">Confirm Password</label>
-          <input type="password" id="confirmPasswordSignUp" class="form-control" placeholder="Confirm Password" required>
+          <input type="password" name = "confirmPasswordSignUp" id="confirmPasswordSignUp" class="form-control" placeholder="Confirm Password" required>
           <label for="inputPhoneNumber">Phone Number (to contact seller/buyer)</label>
-          <input type = "tel" id="phoneNumberSignUp" class="form-control" placeholder="XXX-XXX-XXXX" required>
-          <input type="submit" value = "Sign Up" class="btn btn-lg btn-primary btn-block">
+          <input type = "tel" name = "phoneNumberSignUp" id="phoneNumberSignUp" class="form-control" placeholder="XXX-XXX-XXXX" required>
+          <input type="submit" value = "Sign Up" class="btn btn-lg btn-primary btn-block" formnovalidate>
+          <?php require 'signupverification.php' ?>
       </form>
     </div>
 
@@ -90,5 +90,5 @@
     </script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-  </body>
+</body>
 </html>
