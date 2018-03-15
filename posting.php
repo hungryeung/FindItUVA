@@ -51,27 +51,27 @@
 </nav>
      <div class="container">
 
-      <form class="form-signin" action = "landing.html" onsubmit = "(verifyFilled(this))">
+      <form class="form-signin" action="<?php $_SERVER['PHP_SELF'] ?>" method = "post" onsubmit = "(verifyFilled(this))">
         <h2 class="form-signin-heading">Post an Item for Sale</h2>
         <div class="col-25">
           <label for="itemName">Item Name</label>
         </div>
         <div class="col-75">
-          <input id="itemName" placeholder="What do you want to sell?" required autofocus>
+          <input id="itemName" placeholder="What do you want to sell?" name = "itemName" required autofocus>
         </div>
         <br>
         <div class="col-25">
           <label for="itemPrice">Item Price (USD)</label>
         </div>
         <div class="col-75">
-          <input id="itemPrice"  placeholder="5.00" required>
+          <input id="itemPrice" name = "itemPrice" placeholder="5.00" required>
         </div>
         <br>
         <div class="col-25">
           <label for="itemCategory">Item Category</label>
         </div>
         <div class="col-75">
-          <input id="itemCategory"  placeholder="(e.g. Book, Furniture, Other, etc.)" required>
+          <input id="itemCategory" name = "itemCategory" placeholder="(e.g. Book, Furniture, Other, etc.)" required>
         </div>
         <br>
         <div class="col-25">
@@ -79,11 +79,11 @@
         </div>
         <br>
         <div class="col-75">
-        <textarea id="itemDescription" class = "mytext" placeholder="Further details..."></textarea>
+        <textarea id="itemDescription" name = "itemDescription" class = "mytext" placeholder="Further details..."></textarea>
         </div>
         <br>
         <div class="col-75">
-          <input type = "submit" value = "Post Item">
+          <input type = "submit" value = "Post Item" formnovalidate>
         </div>
       </form>
 
@@ -92,7 +92,7 @@
    <script language="javascript">
       /*checks whether data fields have been entered for posting */
        function verifyFilled(form) {
-          if(document.getElementById("itemNaffme").value === '' || document.getElementById("itemCategory").value === ''){
+          if(document.getElementById("itemName").value === '' || document.getElementById("itemCategory").value === ''){
               alert("Please enter data in all required fields.");
               return false;
           }
@@ -100,6 +100,53 @@
             return true;
           }
         }
+
     </script>
+
+<!-- PHP SCRIPT -->
+<?php
+
+#Create array to hold error messages
+$error_array = array();
+
+#Check to see if the form submission is completed
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+   $name = $_POST['itemName'];
+   $category = $_POST['itemCategory'];
+   $price = $_POST['itemPrice'];
+   $comment = $_POST['itemDescription'];
+
+#My own form validation which includes checking that the comment length is no longer than 200 charcacters
+   #  and that names and categories only include letters as well as the price following a particular regular expression.
+   # IF an error is found, then the error message is added to the error array. 
+  
+  if(strlen($comment)> 200){
+  $error_array[] = "<i>comment is too long</i> <br />";
+}
+if(!ctype_alpha($name)){
+  $error_array[] = "Name must be written in letters only <br />";
+}
+if(!ctype_alpha($category)){
+  $error_array[] = "Category must be written in letters only <br />";
+}
+if(!preg_match("/^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*\.[0-9]{2}$/", $price)){
+  $error_array[] = "Price must be in correct format <br />";
+}
+
+# The error array is printed if there is any errors inside. 
+if (sizeof($error_array) > 0){
+  $str = implode(" ", $error_array);
+  echo $str;
+}
+#otherwise there is a message that is an Item Posted. 
+else {
+echo "Item Posted!";
+}
+}
+
+?>
+
+
 </body>
 </html>
