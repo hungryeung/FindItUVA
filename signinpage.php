@@ -42,7 +42,7 @@
             <input type="checkbox" value="remember-me"> Remember me
           </label>
         </div>
-        <input type = "submit" value = "Log In" class="btn btn-lg btn-primary btn-block" formnovalidate>
+        <input type = "submit" name = "login-submit" value = "Log In" class="btn btn-lg btn-primary btn-block" formnovalidate>
         <?php require 'loginverification.php' ?>
       </form>
 
@@ -59,7 +59,7 @@
           <input type="password" name = "confirmPasswordSignUp" id="confirmPasswordSignUp" class="form-control" placeholder="Confirm Password" required>
           <label for="inputPhoneNumber">Phone Number (to contact seller/buyer)</label>
           <input type = "tel" name = "phoneNumberSignUp" id="phoneNumberSignUp" class="form-control" placeholder="XXX-XXX-XXXX" required>
-          <input type="submit" value = "Sign Up" class="btn btn-lg btn-primary btn-block" formnovalidate>
+          <input type="submit" name = "signup-submit" value = "Sign Up" class="btn btn-lg btn-primary btn-block" formnovalidate>
           <?php require 'signupverification.php' ?>
       </form>
     </div>
