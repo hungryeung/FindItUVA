@@ -41,7 +41,7 @@
         <a class="dropdown-toggle" data-toggle="dropdown" href="#"> My Account
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="signinpage.php">Log Out</a></li>
+          <li><a href="signinpage.html">Log Out</a></li>
           <li><a href="#">something</a></li>
           <li><a href="#"></a></li>
         </ul>
@@ -51,7 +51,7 @@
 </nav>
      <div class="container">
 
-      <form class="form-signin" action="<?php $_SERVER['PHP_SELF'] ?>" method = "post" onsubmit = "(verifyFilled(this))">
+      <form class="form-signin" method = "post" action =  "http://localhost:8080/TomcatAssign5/FormServlet" onsubmit = "return (verifyFilled(this))">
         <h2 class="form-signin-heading">Post an Item for Sale</h2>
         <div class="col-25">
           <label for="itemName">Item Name</label>
@@ -83,17 +83,54 @@
         </div>
         <br>
         <div class="col-75">
-          <input type = "submit" value = "Post Item" formnovalidate>
+          <input type = "submit" name = "posting-submit" value = "Post Item" formnovalidate>
         </div>
       </form>
 
      </div> <!-- /container -->
 
    <script language="javascript">
-      /*checks whether data fields have been entered for posting */
+      /*checks whether data fields have been entered for posting and verifies if everything has been entered correctly */
        function verifyFilled(form) {
-          if(document.getElementById("itemName").value === '' || document.getElementById("itemCategory").value === ''){
-              alert("Please enter data in all required fields.");
+          /*All field are empty, return false/*/
+          if(document.getElementById("itemName").value === '' && document.getElementById("itemCategory").value === '' && document.getElementById("itemPrice") === '' && document.getElementById("itemDescription") === ''){
+              alert("To post your item, please enter data in all required fields.");
+              return false;
+          }
+          /*If one of the fields is empty, return false, and alert the user for each required field that was left blank.*/
+          else if (document.getElementById("itemName").value === '' || document.getElementById("itemCategory").value === '' || document.getElementById("itemPrice") === '' || document.getElementById("itemDescription") === ''){
+              if (document.getElementById("itemName").value === ''){
+                alert("Item name is a required field.  Please enter a valid item name.");
+              }
+              if (document.getElementById("itemCategory").value === ''){
+                alert("Item category is a required field. Please enter an item category.");
+              }
+              if (document.getElementById("itemPrice").value === ''){
+                alert("Item price is a required field. Please enter a valid dollar amount for price.");
+              }
+              if (document.getElementById("itemDescription").value === ''){
+                alert("Item description is a required field. Please enter a short description (less than 200 characters).")
+              }
+              return false;
+          }
+          /*If item description is filled, checks if there are more than 200 characters */
+          else if (!(document.getElementById("itemDescription").value === '') && (document.getElementById("itemDescription").value.length > 200)){
+              alert("Error. Item description cannot be longer than 200 characters.");
+              return false;
+          }
+          /*If item name is filled, checks if the name is correctly entered as letters. */
+          else if (!(document.getElementById("itemName").value === '') && (document.getElementById("itemName").value.match(/[a-zA-Z]/) == null)){
+              alert("Error. Item name must be written in letters only.");
+              return false;
+          }
+          /*If item category is filled, checks if the category is correctly entered as letters. */
+          else if (!(document.getElementById("itemCategory").value ==='') && (document.getElementById("itemCategory").value.match(/[a-zA-Z]/) == null)){
+              alert("Item category must be written in letters only.");
+              return false;
+          }
+          /*If item category is filled, checks if the price is correctly entered as numbers. */
+          else if (!(document.getElementById("itemPrice").value === '') && (document.getElementById("itemPrice").value.match(/[0-9]/) == null)){
+              alert("Price must be in correct format (e.g. 5.00)");
               return false;
           }
           else {
@@ -104,7 +141,7 @@
     </script>
 
 <!-- PHP SCRIPT -->
-<?php
+<!--  <?php
 
 #Create array to hold error messages
 $error_array = array();
@@ -145,7 +182,7 @@ echo "Item Posted!";
 }
 }
 
-?>
+?> -->
 
 
 </body>
