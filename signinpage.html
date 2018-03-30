@@ -36,7 +36,7 @@
 
   <body>
      <div class="container">
-      <form class="form-signin" onsubmit = "(verifyLogIn(this))" method = "post">
+      <form name = "loginform" class="form-signin" action = "http://localhost:8080/TomcatAssign5/FormServlet" onsubmit ="return (verifyLogIn(this))" method = "post">
         <h2 class="form-signin-heading">Log In to FindItUVA</h2>
         <label for="inputEmail">Email address</label>
         <input type="email" name = "inputEmail" id="inputEmail" class="form-control" placeholder="UVA email address (computingID@virginia.edu)" pattern=".+@virginia.edu" required autofocus>
@@ -48,14 +48,14 @@
           </label>
         </div>
         <input type = "submit" name = "login-submit" value = "Log In" class="btn btn-lg btn-primary btn-block" formnovalidate>
-        <?php require 'loginverification.php' ?>
-      </form>
+<!--         <?php require 'loginverification.php' ?>
+ -->      </form>
 
     </div> <!-- /container -->
 
   <!-- Form for signup -->
     <div class = "container">
-      <form class = "form-signin" onsubmit= "(verifySignUp(this))" method = "post">
+      <form name = "signupform" class = "form-signin" action = "http://localhost:8080/TomcatAssign5/FormServlet" onsubmit= "return (verifySignUp(this))" method = "post">
         <h2 class = "form-signin-heading"> Don't Have an Account Yet?</h2>
           <label for="inputEmail">Email address</label>
           <input type="email" name = "inputEmailSignUp" id="inputEmailSignUp" class="form-control" placeholder="UVA email address (computingID@virginia.edu)" pattern=".+@virginia.edu" required autofocus>
@@ -66,8 +66,8 @@
           <label for="inputPhoneNumber">Phone Number (to contact seller/buyer)</label>
           <input type = "tel" name = "phoneNumberSignUp" id="phoneNumberSignUp" class="form-control" placeholder="XXX-XXX-XXXX" required>
           <input type="submit" name = "signup-submit" value = "Sign Up" class="btn btn-lg btn-primary btn-block" formnovalidate>
-          <?php require 'signupverification.php' ?>
-      </form>
+<!--           <?php require 'signupverification.php' ?>
+ -->      </form>
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -75,21 +75,48 @@
     <script language="javascript">
           /*checks whether data fields have been entered for signupform */
             function verifySignUp(form) {
-                if(document.getElementById("inputEmailSignUp").value === '' || document.getElementById("inputPasswordSignUp").value ==='' || document.getElementById("confirmPasswordSignUp").value ==='' || document.getElementById("phoneNumberSignUp").value ===''){
-                    alert("Please enter data in all required fields.");
-                    return false;
+                if(document.getElementById("inputEmailSignUp").value === '' && document.getElementById("inputPasswordSignUp").value ==='' && document.getElementById("confirmPasswordSignUp").value ==='' && document.getElementById("phoneNumberSignUp").value ===''){
+                  alert("Please enter data in all required fields in order to sign up.");
+                  return false;
+                }
+                else if(document.getElementById("inputEmailSignUp").value === '' || document.getElementById("inputPasswordSignUp").value ==='' || document.getElementById("confirmPasswordSignUp").value ==='' || document.getElementById("phoneNumberSignUp").value ===''){
+                    if (document.getElementById("inputEmailSignUp").value === ''){
+                      alert("Email address is a required field. Please enter a valid virginia.edu email address to sign up");
+                    }
+                    if (document.getElementById("inputPasswordSignUp").value === ''){
+                      alert("Password is a required field. Please enter a password to sign up.");
+                    }
+                    if (document.getElementById("confirmPasswordSignUp").value === ''){
+                      alert("Confirm Password is a required field. Please enter a valid password to sign up.");
+                    }
+                    if (document.getElementById("phoneNumberSignUp").value === ''){
+                      alert("Phone Number is a required field. Please enter a valid Phone number to sign up.");
+                    }
+                  return false;
                 }
                 else{
                   return true;
                 }
             }
 
-           function verifyLogIn(form) {
-              if(document.getElementById("inputEmail").value === '' || document.getElementById("inputPassword").value === ''){
-                  alert("Please enter data in all required fields.");
-                  return false;
+            function verifyLogIn(form) {
+              /*if inputEmail is empty and inputPassword is not empty*/
+              if (document.getElementById("inputEmail").value === '' && !(document.getElementById("inputPassword").value === '')){
+                alert("Login requires a valid Email Address. Please enter a valid @virginia.edu email.");
+                return false;
+                }
+               /*if inputPassword is empty and inputEmail is not empty*/
+              else if (document.getElementById("inputPassword").value === '' && !(document.getElementById("inputEmail").value === '')){
+                alert("Login requires a valid Password to be entered. Please check your password.");
+                return false;
               }
-              else {
+              /*if inputPassword is empty and inputEmail is empty*/
+              else if (document.getElementById("inputPassword").value === '' && document.getElementById("inputEmail").value === ''){
+                alert("Please enter data in all required login fields.");
+                  return false;
+                }
+              /*Else, all data has been entered*/
+              else{
                 return true;
               }
             }
