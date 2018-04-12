@@ -44,7 +44,7 @@ public class MailServlet extends HttpServlet
 	   
    private String str_cofm = "";
 	
-   private String url = "http://localhost:8080/TomcatAssign/MailServlet";   // local 
+   private String url = "http://localhost:8080/TomcatAssign5/MailServlet";   // local 
    // private String url = "http://labunix03.cs.virginia.edu:8080/your-computingID/mailService";   // labunix
    
    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException 
