@@ -8,6 +8,9 @@
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+<!-- AngularJS -->
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 
@@ -15,7 +18,7 @@
 
 </head>
 
-<body>
+<body ng-app="myApp">
   <nav class="navbar navbar-default" style="background-color: lightblue; border-color: lightblue">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -50,29 +53,29 @@
   </ul>
 
 </nav>
-     <div class="container">
+     <div ng-controller="myController" class="container">
 
-      <form class="form-signin" method = "post" action =  "http://localhost:8080/TomcatAssign5/FormServlet" onsubmit = "return (verifyFilled(this))">
+      <form class="form-signin" ng-submit="sendPostData()" method = "post" action =  "http://localhost:8080/TomcatAssign5/FormServlet" onsubmit = "return (verifyFilled(this))">
         <h2 class="form-signin-heading">Post an Item for Sale</h2>
         <div class="col-25">
           <label for="itemName">Item Name</label>
         </div>
         <div class="col-75">
-          <input id="itemName" placeholder="What do you want to sell?" name = "itemName" required autofocus>
+          <input id="itemName" ng-model="name" placeholder="What do you want to sell?" name = "itemName" required autofocus>
         </div>
         <br>
         <div class="col-25">
           <label for="itemPrice">Item Price (USD)</label>
         </div>
         <div class="col-75">
-          <input id="itemPrice" name = "itemPrice" placeholder="5.00" required>
+          <input id="itemPrice" ng-model="price" name = "itemPrice" placeholder="5.00" required>
         </div>
         <br>
         <div class="col-25">
           <label for="itemCategory">Item Category</label>
         </div>
         <div class="col-75">
-          <input id="itemCategory" name = "itemCategory" placeholder="(e.g. Book, Furniture, Other, etc.)" required>
+          <input id="itemCategory" ng-model="category" name = "itemCategory" placeholder="(e.g. Book, Furniture, Other, etc.)" required>
         </div>
         <br>
         <div class="col-25">
@@ -87,8 +90,65 @@
           <input type = "submit" name = "posting-submit" value = "Post Item" formnovalidate>
         </div>
       </form>
-
+      Name: {{name}} <br/>
+      Price: {{price}} <br/>
+      Category: {{category}}
      </div> <!-- /container -->
+
+  <!-- AngularScript -->
+  <script>
+     var myApp = angular.module('myApp', []);
+
+      myApp.controller("myController", function ($scope, $http) 
+      {
+
+        $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
+
+         /*var onSuccess = function (data, status, headers, config)
+         {
+            $scope.data = data;
+         };
+
+         var onError = function (data, status, headers, config)
+         {
+            $scope.error = status;
+         }
+         
+         $scope.getPlace = function() {
+            if ($scope.zip !== undefined){
+               //var promise = $http.post("http://localhost/cs4640s18/angularjs-backend/popcorn-post-request/getCityState.php", {"zip": $scope.zip}); 
+               var promise = $http.post("getCityState.php", {"zip": $scope.zip});
+               promise.success(onSuccess);
+               promise.error(onError); 
+            }  
+            else
+            {
+             $scope.data = "undefined"; 
+            }
+         }
+         */
+
+       $scope.sendPostData = function() {
+              $http({
+                  url : 'FormServlet',
+                  method : "POST",
+                  data : {
+                      'name' : $scope.name
+                      'price' : $scope.price
+                      'category': $scope.category
+                  }
+              }).then(function(response) {
+                /* send message
+                */
+                  $scope.message = response.data;
+              }, function(response) {
+                /* if it fails,, then just send the response (something wrong with the data
+                */
+                  $scope.message = response;
+              });
+          };
+      } ]);      
+  </script>
 
    <script language="javascript">
       /*checks whether data fields have been entered for posting and verifies if everything has been entered correctly */
@@ -138,8 +198,9 @@
             return true;
           }
         }
-
     </script>
+
+
 
 <!-- PHP SCRIPT -->
 <!--  <?php
