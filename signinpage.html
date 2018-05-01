@@ -10,6 +10,8 @@
 
 
 <!-- The main sign in page -->
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"> maybe? if run into issues with recognizing Ajax -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -70,6 +72,27 @@
 <!--           <?php require 'signupverification.php' ?>
  -->      </form>
     </div>
+
+    <div class="container" id="infobutton">
+      <h2 class="form-signin-heading">  About FindItUVA </h2>
+      <button " class="btn btn-lg btn-primary btn-block" onclick="moreInfo()" type="button"> Click here for information about FindItUVA </button>
+    </div>
+
+  <!-- AJAX Request for the button; displays information data when button is clicked by retrieving text file from the server.-->
+    <script>
+        function moreInfo(){
+          var xhrequest = new XMLHttpRequest();
+          xhrequest.onreadystatechange = function(){
+            //makes sure the request is valid if so do this; returns the response text from the server
+            if (this.status==200 && this.readyState==4){
+              document.getElementById("infobutton").innerHTML = this.responseText;
+            }
+          };
+          //Gets the text file from the request
+          xhrequest.open("GET","FindItUVAabout.html",true);
+          xhrequest.send();
+        }
+    </script>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
