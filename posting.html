@@ -62,6 +62,10 @@
         </div>
         <div class="col-75">
           <input id="itemName" ng-model="name" placeholder="What do you want to sell?" name = "itemName" required autofocus>
+<<<<<<< HEAD
+=======
+          Name: {{name}} <br/>
+>>>>>>> 9b8c0303b2aca5e70402849d67548d553ec5e936
         </div>
         <br>
         <div class="col-25">
@@ -69,6 +73,10 @@
         </div>
         <div class="col-75">
           <input id="itemPrice" ng-model="price" name = "itemPrice" placeholder="5.00" required>
+<<<<<<< HEAD
+=======
+          Price: {{price}} 
+>>>>>>> 9b8c0303b2aca5e70402849d67548d553ec5e936
         </div>
         <br>
         <div class="col-25">
@@ -76,6 +84,10 @@
         </div>
         <div class="col-75">
           <input id="itemCategory" ng-model="category" name = "itemCategory" placeholder="(e.g. Book, Furniture, Other, etc.)" required>
+<<<<<<< HEAD
+=======
+          Category: {{category}}
+>>>>>>> 9b8c0303b2aca5e70402849d67548d553ec5e936
         </div>
         <br>
         <div class="col-25">
@@ -90,6 +102,7 @@
           <input type = "submit" name = "posting-submit" value = "Post Item" formnovalidate>
         </div>
       </form>
+<<<<<<< HEAD
       <button ng-click="sendPostData()">Send Post</button>
       <br/>
         <div class="container">
@@ -97,6 +110,9 @@
         Price: {{price}} <br/>
         Category: {{category}}
         </div>
+=======
+      <br/>
+>>>>>>> 9b8c0303b2aca5e70402849d67548d553ec5e936
      </div> <!-- /container -->
 
   <!-- AngularScript -->
@@ -192,6 +208,112 @@
         }
     </script>
  -->
+
+
+
+
+  <!-- AngularScript -->
+  <script>
+     var myApp = angular.module('myApp', []);
+
+      myApp.controller("myController", [ '$scope', '$http', function($scope, $http)
+      {
+
+        $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
+        $scope.name = "";
+        $scope.price = "";
+        $scope.category = "";
+
+
+
+         /*var onSuccess = function (data, status, headers, config)
+         {
+            $scope.data = data;
+         };
+
+         var onError = function (data, status, headers, config)
+         {
+            $scope.error = status;
+         }
+         
+         $scope.getPlace = function() {
+            if ($scope.zip !== undefined){
+               //var promise = $http.post("http://localhost/cs4640s18/angularjs-backend/popcorn-post-request/getCityState.php", {"zip": $scope.zip}); 
+               var promise = $http.post("getCityState.php", {"zip": $scope.zip});
+               promise.success(onSuccess);
+               promise.error(onError); 
+            }  
+            else
+            {
+             $scope.data = "undefined"; 
+            }
+         }
+         */
+      
+       $scope.sendPostData = function() {
+        $http({
+           url : 'localhost:8080/TomcatAssign5/FormServlet',
+            method : "POST",
+            data : {
+                'name' : $scope.name
+            }
+        });
+       };
+             
+  }]);
+
+  </script>
+<!-- 
+   <script language="javascript">
+      /*checks whether data fields have been entered for posting and verifies if everything has been entered correctly */
+       function verifyFilled(form) {
+          /*All field are empty, return false/*/
+          if(document.getElementById("itemName").value === '' && document.getElementById("itemCategory").value === '' && document.getElementById("itemPrice") === '' && document.getElementById("itemDescription") === ''){
+              alert("To post your item, please enter data in all required fields.");
+              return false;
+          }
+          /*If one of the fields is empty, return false, and alert the user for each required field that was left blank.*/
+          else if (document.getElementById("itemName").value === '' || document.getElementById("itemCategory").value === '' || document.getElementById("itemPrice") === '' || document.getElementById("itemDescription") === ''){
+              if (document.getElementById("itemName").value === ''){
+                alert("Item name is a required field.  Please enter a valid item name.");
+              }
+              if (document.getElementById("itemCategory").value === ''){
+                alert("Item category is a required field. Please enter an item category.");
+              }
+              if (document.getElementById("itemPrice").value === ''){
+                alert("Item price is a required field. Please enter a valid dollar amount for price.");
+              }
+              if (document.getElementById("itemDescription").value === ''){
+                alert("Item description is a required field. Please enter a short description (less than 200 characters).")
+              }
+              return false;
+          }
+          /*If item description is filled, checks if there are more than 200 characters */
+          else if (!(document.getElementById("itemDescription").value === '') && (document.getElementById("itemDescription").value.length > 200)){
+              alert("Error. Item description cannot be longer than 200 characters.");
+              return false;
+          }
+          /*If item name is filled, checks if the name is correctly entered as letters. */
+          else if (!(document.getElementById("itemName").value === '') && (document.getElementById("itemName").value.match(/[a-zA-Z]/) == null)){
+              alert("Error. Item name must be written in letters only.");
+              return false;
+          }
+          /*If item category is filled, checks if the category is correctly entered as letters. */
+          else if (!(document.getElementById("itemCategory").value ==='') && (document.getElementById("itemCategory").value.match(/[a-zA-Z]/) == null)){
+              alert("Item category must be written in letters only.");
+              return false;
+          }
+          /*If item category is filled, checks if the price is correctly entered as numbers. */
+          else if (!(document.getElementById("itemPrice").value === '') && (document.getElementById("itemPrice").value.match(/[0-9]/) == null)){
+              alert("Price must be in correct format (e.g. 5.00)");
+              return false;
+          }
+          else {
+            return true;
+          }
+        }
+    </script> -->
+
 
 
 <!-- PHP SCRIPT -->
