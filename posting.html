@@ -93,10 +93,52 @@
           <input type = "submit" name = "posting-submit" value = "Post Item" formnovalidate>
         </div>
       </form>
-      <br/>
      </div> <!-- /container -->
 
-   <script language="javascript">
+  <!-- AngularScript -->
+  <script>
+     var myApp = angular.module('myApp', []);
+
+      myApp.controller("myController", [ '$scope', '$http', function($scope, $http)
+      {
+        $scope.name = "";
+
+//http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
+
+
+         /*var onSuccess = function (data, status, headers, config)
+         {
+            $scope.data = data;
+         };
+
+         var onError = function (data, status, headers, config)
+         {
+            $scope.error = status;
+         }
+         
+         $scope.getPlace = function() {
+            if ($scope.zip !== undefined){
+               //var promise = $http.post("http://localhost/cs4640s18/angularjs-backend/popcorn-post-request/getCityState.php", {"zip": $scope.zip}); 
+               var promise = $http.post("getCityState.php", {"zip": $scope.zip});
+               promise.success(onSuccess);
+               promise.error(onError); 
+            }  
+            else
+            {
+             $scope.data = "undefined"; 
+            }
+         }
+         */
+      
+       $scope.sendPostData = function() {
+        $http('http://localhost:8080/TomcatAssign5/FormServlet', {"name": $scope.name});
+       };
+             
+  }]);
+
+  </script>
+
+   <!-- <script language="javascript">
       /*checks whether data fields have been entered for posting and verifies if everything has been entered correctly */
        function verifyFilled(form) {
           /*All field are empty, return false/*/
@@ -145,6 +187,8 @@
           }
         }
     </script>
+ -->
+
 
 
 

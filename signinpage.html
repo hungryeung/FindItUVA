@@ -4,6 +4,7 @@
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.js"></script>
 <!-- Latest compiled and minified JavaScript -->
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
 
@@ -33,13 +34,12 @@
   </head>
 
   <!-- Form for login  -->
-
-  <body>
-     <div class="container">
+  <body ng-app ="myApp">
+     <div class="container" ng-controller="myController">
       <form name = "loginform" class="form-signin" action = "http://localhost:8080/TomcatAssign5/FormServlet" onsubmit ="return (verifyLogIn(this))" method = "post">
         <h2 class="form-signin-heading">Log In to FindItUVA</h2>
         <label for="inputEmail">Email address</label>
-        <input type="email" name = "inputEmail" id="inputEmail" class="form-control" placeholder="UVA email address (computingID@virginia.edu)" pattern=".+@virginia.edu" required autofocus>
+        <input type="email" name = "inputEmail" id="inputEmail" class="form-control" placeholder="UVA email address (computingID@virginia.edu)" pattern=".+@virginia.edu" ng-model="inputEmail" ng-blur="getName()" required>
         <label for="inputPassword">Password</label>
         <input type="password" name = "inputPassword" id="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox">
@@ -48,14 +48,15 @@
           </label>
         </div>
         <input type = "submit" name = "login-submit" value = "Log In" class="btn btn-lg btn-primary btn-block" formnovalidate>
-<!--         <?php require 'loginverification.php' ?>
- -->      </form>
+     </form>
+      Input: {{inputEmail}} </br>
+      User: {{data}} </br>
 
     </div> <!-- /container -->
 
   <!-- Form for signup -->
     <div class = "container">
-      <form name = "signupform" class = "form-signin" action = "http://localhost:8080/TomcatAssign5/FormServlet" onsubmit= "return (verifySignUp(this))" method = "post">
+      <form name = "signupform" class = "form-signin" action = "adduser.php" onsubmit= "return (verifySignUp(this))" method = "post">
         <h2 class = "form-signin-heading"> Don't Have an Account Yet?</h2>
           <label for="inputEmail">Email address</label>
           <input type="email" name = "inputEmailSignUp" id="inputEmailSignUp" class="form-control" placeholder="UVA email address (computingID@virginia.edu)" pattern=".+@virginia.edu" required autofocus>
@@ -121,6 +122,36 @@
               }
             }
     </script>
+    <script>
+      var myApp = angular.module('myApp', []);
+
+      myApp.controller("myController", function ($scope, $http) 
+      {
+
+          var onSuccess = function(data, status, headers, config){
+            $scope.data = data;
+          };
+        
+           var onError = function(data, status, headers, config){
+            $scope.error = status;
+          };
+        
+           var inputEmail = $scope.inputEmail;
+           $scope.getName = function()
+           {
+            if ($scope.inputEmail !== undefined){
+              var promise = $http.get("usercheck.php?inputEmail=" + $scope.inputEmail);
+              promise.success(onSuccess);
+              promise.error(onError);
+            }
+            else{
+              $scope.data = "undefined";
+            }
+           }
+        
+      });
+    </script>
+
     <!-- Include all compiled plugins (below), or include individual files as needed -->
 <!--     <script src="js/bootstrap.min.js"></script>
  --></body>
